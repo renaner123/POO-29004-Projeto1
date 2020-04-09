@@ -125,7 +125,21 @@ public class Vevent {
     }
 
     public boolean alterarDtstamp(UUID u, String stamp) {
-        return true;
+        ArrayList<String> aux = new ArrayList<>();
+        int pos=0;
+        if(eventos_uid.containsKey(String.valueOf(u))){
+            aux = eventos_uid.get(String.valueOf(u));
+            for(int i=0;i<aux.size();i++){
+                if(aux.get(i).startsWith("DTSTAMP")){
+                    pos =i;
+                }
+            }
+            aux.set(pos,"DTSTAMP:"+stamp);
+            eventos_uid.put(String.valueOf(u),aux);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getDtstart() {
@@ -133,7 +147,21 @@ public class Vevent {
     }
 
     public boolean alterarDtstart(UUID u, String start) {
-       return true;
+        ArrayList<String> aux = new ArrayList<>();
+        int pos=0;
+        if(eventos_uid.containsKey(String.valueOf(u))){
+            aux = eventos_uid.get(String.valueOf(u));
+            for(int i=0;i<aux.size();i++){
+                if(aux.get(i).startsWith("DTSTART")){
+                    pos =i;
+                }
+            }
+            aux.set(pos,"DTSTART:"+start);
+            eventos_uid.put(String.valueOf(u),aux);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getDtend() {
@@ -141,7 +169,21 @@ public class Vevent {
     }
 
     public boolean alterarDtend(UUID u, String end) {
-       return true;
+        ArrayList<String> aux = new ArrayList<>();
+        int pos=0;
+        if(eventos_uid.containsKey(String.valueOf(u))){
+            aux = eventos_uid.get(String.valueOf(u));
+            for(int i=0;i<aux.size();i++){
+                if(aux.get(i).startsWith("DTEND")){
+                    pos =i;
+                }
+            }
+            aux.set(pos,"DTEND:"+end);
+            eventos_uid.put(String.valueOf(u),aux);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getLocation() {
@@ -149,7 +191,21 @@ public class Vevent {
     }
 
     public boolean alterarLocation(UUID u, String location) {
-       return true;
+        ArrayList<String> aux = new ArrayList<>();
+        int pos=0;
+        if(eventos_uid.containsKey(String.valueOf(u))){
+            aux = eventos_uid.get(String.valueOf(u));
+            for(int i=0;i<aux.size();i++){
+                if(aux.get(i).startsWith("LOCATION")){
+                    pos =i;
+                }
+            }
+            aux.set(pos,"LOCATION:"+location);
+            eventos_uid.put(String.valueOf(u),aux);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getRrule() {
@@ -157,7 +213,25 @@ public class Vevent {
     }
 
     public boolean alterarRrule(UUID u, String rrule) {
-        return true;
+        ArrayList<String> aux = new ArrayList<>();
+        int pos=0;
+        if(eventos_uid.containsKey(String.valueOf(u))){
+            aux = eventos_uid.get(String.valueOf(u));
+            for(int i=0;i<aux.size();i++){
+                if(aux.get(i).startsWith("RRULE")){
+                    pos =i;
+                }
+            }
+            if(pos!=-1) {
+                aux.set(pos, "RRULE:" + rrule);
+                eventos_uid.put(String.valueOf(u), aux);
+                return true;
+            }else {
+                return false;
+            }
+        }else{
+            return false;
+        }
     }
 
 
