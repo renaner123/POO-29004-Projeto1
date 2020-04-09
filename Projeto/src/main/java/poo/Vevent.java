@@ -22,14 +22,70 @@ public class Vevent {
     private static HashMap<String, ArrayList<String>> eventos_uid = new HashMap<String, ArrayList<String>>();
 
     public Vevent(String sumarry, UUID uid, String dtstamp, String dtstart, String dtend, String location) {
+        this.sumarry = sumarry;
+        this.uid = uid;
+        this.dtstamp = dtstamp;
+        this.dtstart = dtstart;
+        this.dtend = dtend;
+        this.location = location;
+
+        this.eventos.add("BEGIN:VEVENT");
+        this.eventos.add("SUMMARY:" + this.sumarry);
+        this.eventos.add("UID:" + String.valueOf(this.uid));
+        this.eventos.add("DTSTAMP:" + this.dtstamp);
+        this.eventos.add("DTSTART:" + this.dtstart);
+        this.eventos.add("DTEND:" + this.dtend);
+        this.eventos.add("LOCATION:" + this.location);
+        this.eventos.add("END:VEVENT");
+        eventos_uid.put(String.valueOf(this.uid),eventos);
 
     }
 
     public Vevent(String sumarry, UUID uid, String dtstamp, String dtstart, String dtend, String location, String rrule) {
+        this.sumarry = sumarry;
+        this.uid = uid;
+        this.dtstamp = dtstamp;
+        this.dtstart = dtstart;
+        this.dtend = dtend;
+        this.location = location;
+        this.rrule = rrule;
+
+        this.eventos.add("BEGIN:VEVENT");
+        this.eventos.add("SUMMARY:" + this.sumarry);
+        this.eventos.add("UID:" + String.valueOf(this.uid));
+        this.eventos.add("DTSTAMP:" + this.dtstamp);
+        this.eventos.add("DTSTART:" + this.dtstart);
+        this.eventos.add("DTEND:" + this.dtend);
+        this.eventos.add("LOCATION:" + this.location);
+        this.eventos.add("RRULE:" + rrule);
+        this.eventos.add("END:VEVENT");
+        eventos_uid.put(String.valueOf(this.uid),eventos);
 
     }
 
     public Vevent(String sumarry, UUID uid, String dtstamp, String dtstart, String dtend, String location, String rrule, ArrayList<String> exdate) {
+        this.sumarry = sumarry;
+        this.uid = uid;
+        this.dtstamp = dtstamp;
+        this.dtstart = dtstart;
+        this.dtend = dtend;
+        this.location = location;
+        this.rrule = rrule;
+        this.exdate = exdate;
+
+        this.eventos.add("BEGIN:VEVENT");
+        this.eventos.add("SUMMARY:" + this.sumarry);
+        this.eventos.add("UID:" + String.valueOf(this.uid));
+        this.eventos.add("DTSTAMP:" + this.dtstamp);
+        this.eventos.add("DTSTART:" + this.dtstart);
+        this.eventos.add("DTEND:" + this.dtend);
+        this.eventos.add("LOCATION:" + this.location);
+        this.eventos.add("RRULE:" + rrule);
+        for (String a : exdate) {
+            eventos.add("EXDATE:" + a);
+        }
+        eventos.add("END:VEVENT");
+        eventos_uid.put(String.valueOf(this.uid),eventos);
     }
 
     public Vevent() {
