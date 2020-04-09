@@ -234,7 +234,6 @@ public class Vevent {
         }
     }
 
-
     public ArrayList<String> getExdate() {
         return exdate;
     }
@@ -248,6 +247,16 @@ public class Vevent {
     }
 
     public boolean removeEvent(UUID uid) {
-        return true;
+        try{
+            for(Object key:  new HashSet<>(eventos_uid.keySet()) ){
+                if(key.equals(String.valueOf(uid))) {
+                    Object value = eventos_uid.remove(key);
+                    return true;
+                }
+            }
+            return false;
+        }catch(Exception e){
+            return false;
+        }
     }
 }
