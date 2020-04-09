@@ -167,17 +167,90 @@ public class Icalendar {
 
     }
     public boolean validaData(String date){
+        try{
+            String year = (date.substring(0,4));
+            String month= (date.substring(4,6));
+            String dayOfMonth = date.substring(6,8);
+            String hour = date.substring(9,11);
+            String minute= date.substring(11,13);
+            String second = date.substring(13,15);
+
+            LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(year), Integer.parseInt(month), Integer.parseInt(dayOfMonth),
+                    Integer.parseInt(hour), Integer.parseInt(minute), Integer.parseInt(second));
+        }catch (Exception e){
+            return false;
+        }
         return true;
     }
 
     private String converteData(String date){
-        return "";
+        String data = date.substring(0,date.indexOf('T'));
+        String hour = date.substring(date.indexOf('T')+1,date.length());
+        String datas[] = data.split("-");
+        String hours[] = hour.split(":");
+
+        try {
+            LocalDateTime localDateTime = LocalDateTime.of(Integer.parseInt(datas[0]), Integer.parseInt(datas[1]), Integer.parseInt(datas[2]),
+                    Integer.parseInt(hours[0]), Integer.parseInt(hours[1]), Integer.parseInt(hours[2].substring(0, hours[2].indexOf("."))));
+            String dataFormatada = localDateTime.format(DateTimeFormatter.ofPattern("yyyyMMdd'T'HHmmss"));
+            return dataFormatada;
+        }catch (Exception e){
+            return "";
+        }
     }
 
     public boolean validaRrule(String n){
-       return true;
+        String splits[] = n.split(";");
+        String freq =""; String interval="";String until="";String byDay="";String aux[];
+        for(int i=0; i < splits.length;i++){
+            aux = splits[i].split("=");
+            if(aux[0].equals("FREQ")){
+                freq = aux[1];
+            }else if(aux[0].equals("INTERVAL")){
+                interval = aux[1];
+            }else if(aux[0].equals("UNTIL")){
+                until = aux[1];
+            }else if(aux[0].equals("BYDAY")){
+                byDay = aux[1];
+            }
+        }
+        if(freq.equals("DAILY")||freq.equals("WEEKLY")||freq.equals("MONTLHY")||freq.equals("YEARLY")){
+            try{
+                Integer.parseInt(interval);
+                if(validaData(until)==true){
+                    return true;
+                }else{
+                    return false;
+                }
+
+            }catch(Exception e){
+                if(interval.isEmpty()){
+                    return true;
+                }else{
+                    return false;
+                }
+            }
+
+        }else{
+            return false;
+        }
+
 
     }
+    public boolean removeEvent(UUID sum){
+        return this.vevent.removeEvent(sum);
+    }
+
+    private ArrayList<String> converteExdate(ArrayList<String> a){
+        ArrayList<String> aux = new ArrayList<>();
+        for(String b: a){
+            if(this.validaData(this.converteData(b))==true) {
+                aux.add(this.converteData(b));
+            }
+        }
+        return aux;
+    }
+
 
     public boolean removeEvent(UUID sum){
         return this.vevent.removeEvent(sum);
