@@ -146,10 +146,26 @@ public class Icalendar {
         return this.vcalendar.getVersion();
     }
 
-    public void getCalendar(){
+    public void toString(){
+        try {
+            if (this.vevent.getHashuid().size() >= 1) {
+                System.out.println("BEGIN:VCALENDAR");
+                System.out.println("VERSION:" + this.getVersion());
+                System.out.println("PRODID:" + this.vcalendar.getProID());
+                for (Map.Entry<String, ArrayList<String>> elemento : this.vevent.getHashuid().entrySet()) {
+                    for (String exit : elemento.getValue()) {
+                        System.out.println(exit);
+                    }
+                }
+                System.out.println("END:VCALENDAR");
+            } else {
+                System.out.println("Calendar vazio");
+            }
+        }catch(Exception e){
+            System.out.println("Ainda não existe Vcalendar");
+        }
 
     }
-
     public boolean validaData(String date){
         return true;
     }
