@@ -98,7 +98,21 @@ public class Vevent {
 
 
     public boolean alterarSumarry(UUID u, String summary) {
-      return true;
+        ArrayList<String> aux = new ArrayList<>();
+        int pos=0;
+        if(eventos_uid.containsKey(String.valueOf(u))){
+            aux = eventos_uid.get(String.valueOf(u));
+            for(int i=0;i<aux.size();i++){
+                if(aux.get(i).startsWith("SUMMARY")){
+                    pos =i;
+                }
+            }
+            aux.set(pos,"SUMMARY:"+summary);
+            eventos_uid.put(String.valueOf(u),aux);
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public UUID getUid() {
