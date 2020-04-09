@@ -252,15 +252,6 @@ public class Icalendar {
     }
 
 
-    public boolean removeEvent(UUID sum){
-        return this.vevent.removeEvent(sum);
-    }
-
-    private ArrayList<String> converteExdate(ArrayList<String> a){
-        ArrayList<String> aux = new ArrayList<>();
-        return aux;
-    }
-
 
 
 }
