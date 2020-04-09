@@ -24,14 +24,49 @@ public class Icalendar {
 
 
     public boolean addEvent(String sumarry, UUID uid, String dtstamp, String dtstart, String dtend, String location) {
-        return true;
+        calendar = this.vcalendar.getvCalendar();
+        if((this.validaData(this.converteData(dtstamp)) && this.validaData(this.converteData(dtstart)) && this.validaData(this.converteData(dtend))) == true) {
+            for (Map.Entry<String, ArrayList<String>> elemento : this.calendar.entrySet()) {
+                if (elemento.getKey().equals(this.getProid())) {
+                    vevent = new Vevent(sumarry, uid, this.converteData(dtstamp), this.converteData(dtstart), this.converteData(dtend), location);
+                    elemento.setValue(this.vevent.getEventos());
+                }
+            }
+
+            return true;
+        }else{
+            return false;
+        }
     }
     public boolean addEvent(String sumarry, UUID uid, String dtstamp, String dtstart, String dtend, String location, String rrule) {
-       return true;
+        calendar = this.vcalendar.getvCalendar();
+
+        if((this.validaData(this.converteData(dtstamp)) && this.validaData(this.converteData(dtstart)) && this.validaData(this.converteData(dtend)))&&this.validaRrule(rrule) == true) {
+            for (Map.Entry<String, ArrayList<String>> elemento : this.calendar.entrySet()) {
+                if (elemento.getKey().equals(this.getProid())) {
+                    vevent = new Vevent(sumarry, uid, this.converteData(dtstamp), this.converteData(dtstart), this.converteData(dtend), location, rrule);
+                    elemento.setValue(this.vevent.getEventos());
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public boolean addEvent(String sumarry, UUID uid, String dtstamp, String dtstart, String dtend, String location, String rrule, ArrayList<String> exdate) {
-       return true;
+        calendar = this.vcalendar.getvCalendar();
+        if((this.validaData(this.converteData(dtstamp)) && this.validaData(this.converteData(dtstart)) && this.validaData(this.converteData(dtend)))&&this.validaRrule(rrule) == true) {
+            for (Map.Entry<String, ArrayList<String>> elemento : this.calendar.entrySet()) {
+                if (elemento.getKey().equals(this.getProid())) {
+                    vevent = new Vevent(sumarry, uid, this.converteData(dtstamp), this.converteData(dtstart), this.converteData(dtend), location, rrule, this.converteExdate(exdate));
+                    elemento.setValue(this.vevent.getEventos());
+                }
+            }
+            return true;
+        }else{
+            return false;
+        }
     }
 
     public String getProid(){
