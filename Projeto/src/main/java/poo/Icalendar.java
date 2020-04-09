@@ -146,7 +146,7 @@ public class Icalendar {
         return this.vcalendar.getVersion();
     }
 
-    public void toString(){
+    public void getCalendar(){
         try {
             if (this.vevent.getHashuid().size() >= 1) {
                 System.out.println("BEGIN:VCALENDAR");
@@ -250,8 +250,4 @@ public class Icalendar {
         }
         return aux;
     }
-
-
-
-
 }
